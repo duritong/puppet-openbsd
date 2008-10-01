@@ -30,3 +30,18 @@ define openbsd::special_package(
         path => '/bin:/sbin:/usr/bin:/usr/sbin',
     }
 }
+
+# use this to add a service to the rc.local
+define openbsd::add_to_rc_local(
+    $binary,
+    $start_cmd = 'absent'
+){
+    case $start_cmd {
+        'absent': { $real_start_cmd = $binary }
+        default: { $real_start_cmd = $start_cmd }
+    }
+    exec{"enable_${name}_on_boot":
+        command => "echo 'if [ -x ${binary} ]; then echo -n \' ${name}\'; ${real_start_cmd}; fi' >> /etc/rc.local",
+        unless => "grep -q ${name} /etc/rc.local",
+    }
+}
