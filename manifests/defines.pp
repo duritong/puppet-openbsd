@@ -35,14 +35,16 @@ define openbsd::special_package(
 define openbsd::add_to_rc_local(
     $binary,
     $test_op = '-x',
-    $start_cmd = 'absent'
+    $start_cmd = 'absent',
+    $ensure = 'present'
 ){
     case $start_cmd {
         'absent': { $real_start_cmd = $binary }
         default: { $real_start_cmd = $start_cmd }
     }
-    exec{"enable_${name}_on_boot":
-        command => "echo 'if [ ${test_op} ${binary} ]; then echo -n \" ${name}\"; ${real_start_cmd}; fi' >> /etc/rc.local",
-        unless => "grep -q \"${name}\" /etc/rc.local",
+    line { "enable_${name}_on_boot":
+        file => "/etc/rc.local",
+        line => "if [ ${test_op} ${binary} ]; then echo -n \" ${name}\"; ${real_start_cmd}; fi",
+        ensure => $ensure,
     }
 }
