@@ -19,7 +19,7 @@ define openbsd::special_package(
             $pkg_check_cmd = "pkg_info | grep -q ${real_check_str}; test $? -gt 0"  
         }
         default: {
-            $pkg_cmd =  "PKG_PATH=ftp://mirror.switch.ch/pub/OpenBSD/$kernelversion/packages/$hardwaremodel/;pkg_add -r ${name}"
+            $pkg_cmd =  "PKG_PATH=ftp://mirror.switch.ch/pub/OpenBSD/${kernelversion}/packages/${hardwaremodel}/;pkg_add -r ${name}"
             $pkg_check_cmd = "pkg_info | grep -q ${real_check_str}"               
         }
     }
