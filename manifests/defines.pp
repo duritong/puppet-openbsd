@@ -49,7 +49,7 @@ define openbsd::add_to_rc_local(
     }
 }
 
-define openbsd::addCarpDevice(
+define openbsd::add_carp_device(
     $carp_ipaddress,
     $carp_subnet,
     $carp_broadcast,
