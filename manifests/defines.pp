@@ -48,3 +48,19 @@ define openbsd::add_to_rc_local(
         ensure => $ensure,
     }
 }
+
+define openbsd::addCarpDevice(
+    $carp_ipaddress,
+    $carp_subnet,
+    $carp_broadcast,
+    $carp_vhid,
+    $carp_password,
+    $carp_advbase = '1'
+) {
+    include openbsd::carp
+    file{"/etc/hostname.${name}":
+        content => "inet ${carp_ipaddress} ${carp_subnet} ${carp_broadcast} vhid ${carp_vhid} pass ${carp_password} advbase ${carp_advbase}",
+        notify => Exec['restart_network'],
+        owner => root, group => 0, mode => 0600; 
+    }
+}
