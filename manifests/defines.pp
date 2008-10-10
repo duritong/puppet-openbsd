@@ -55,11 +55,12 @@ define openbsd::add_carp_device(
     $carp_broadcast,
     $carp_vhid,
     $carp_password,
-    $carp_advbase = '1'
+    $carp_advbase = '1',
+    $carp_advskew = '0'
 ) {
     include openbsd::carp
     file{"/etc/hostname.${name}":
-        content => "inet ${carp_ipaddress} ${carp_subnet} ${carp_broadcast} vhid ${carp_vhid} pass ${carp_password} advbase ${carp_advbase}",
+        content => "inet ${carp_ipaddress} ${carp_subnet} ${carp_broadcast} vhid ${carp_vhid} pass ${carp_password} advbase ${carp_advbase} advskew ${carp_advskew}",
         notify => Exec['restart_network'],
         owner => root, group => 0, mode => 0600; 
     }
