@@ -6,7 +6,7 @@ class openbsd::network {
     # is more safe than to directly 
     # restart the network
     exec{'restart_network':
-        command => "echo 'This host should be restarted as its network config changed' | mail -s 'Network change: restart ${fqdn}'"
+        command => "echo 'This host should be restarted as its network config changed' | mail -s 'Network change: restart ${fqdn}'",
         refreshonly => true,
     }
 }
