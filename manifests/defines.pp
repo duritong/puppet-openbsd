@@ -88,7 +88,7 @@ define openbsd::add_special_network_device(
     $ensure = 'present'
 ){
     include openbsd::network
-    file{'/etc/hostname.${name}':
+    file{"/etc/hostname.${name}":
         content => "${content}",
         notify => Exec['restart_network'],
         ensure => $ensure,
