@@ -92,6 +92,6 @@ define openbsd::add_special_network_device(
         content => "${content}",
         notify => Exec['restart_network'],
         ensure => $ensure,
-        owner => root, group => 0, mode => 0644; 
+        owner => root, group => 0, mode => 0640; 
     }
 }
