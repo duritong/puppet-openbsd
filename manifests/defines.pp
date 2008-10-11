@@ -60,11 +60,25 @@ define openbsd::add_carp_device(
     $ensure = 'present'
 ) {
     include openbsd::carp
-    include openbsd::network
-    file{"/etc/hostname.${name}":
+    openbsd::add_network_device{$name:
         content => "inet ${carp_ipaddress} ${carp_subnet} ${carp_broadcast} vhid ${carp_vhid} pass ${carp_password} advbase ${carp_advbase} advskew ${carp_advskew}",
+        ensure => $ensure,
+    }
+}
+
+# currently we manage the devices with 
+# the whole content
+# name: device
+# content: content of the file
+define openbsd::add_network_device(
+    $content,
+    $ensure = 'present'
+){
+    include openbsd::network
+    file{'/etc/hostname.${name}':
+        content => "${content}",
         notify => Exec['restart_network'],
         ensure => $ensure,
-        owner => root, group => 0, mode => 0600; 
+        owner => root, group => 0, mode => 0644; 
     }
 }
