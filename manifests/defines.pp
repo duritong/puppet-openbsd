@@ -89,7 +89,7 @@ define openbsd::add_special_network_device(
 ){
     include openbsd::network
     file{"/etc/hostname.${name}":
-        content => "${content}",
+        content => "${content}\n",
         notify => Exec['restart_network'],
         ensure => $ensure,
         owner => root, group => 0, mode => 0640; 
