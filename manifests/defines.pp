@@ -60,17 +60,30 @@ define openbsd::add_carp_device(
     $ensure = 'present'
 ) {
     include openbsd::carp
-    openbsd::add_network_device{$name:
+    openbsd::add_special_network_device{$name:
         content => "inet ${carp_ipaddress} ${carp_subnet} ${carp_broadcast} vhid ${carp_vhid} pass ${carp_password} advbase ${carp_advbase} advskew ${carp_advskew}",
         ensure => $ensure,
     }
 }
 
-# currently we manage the devices with 
+define openbsd::add_network_device(
+    $net_ipaddress,
+    $net_subnet,
+    $net_additional_params = 'NONE',
+    $ensure = 'present'
+){
+    openbsd::add_special_network_device{$name:
+        content => "inet ${net_ipaddress} ${net_subnet} ${net_additional_params}",
+        ensure => $ensure,
+    }
+}
+
+
+# you can manage the devices with 
 # the whole content
 # name: device
 # content: content of the file
-define openbsd::add_network_device(
+define openbsd::add_special_network_device(
     $content,
     $ensure = 'present'
 ){
