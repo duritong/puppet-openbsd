@@ -10,7 +10,7 @@ class openbsd::ports::setup {
       require => Exec['setup_ports_tree'],
       owner => root, group => 0, mode => 0644;
     '/usr/ports/distfiles/make_checksums.sh':
-      source => "puppet://$server/modules/openbsd/ports/make_checksums.sh",
+      source => "puppet:///modules/openbsd/ports/make_checksums.sh",
       owner => root, group => 0, mode => 0700;
   }
 }
