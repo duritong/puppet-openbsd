@@ -17,7 +17,7 @@ define openbsd::special_package(
             $pkg_check_cmd = "pkg_info | grep -q ${real_check_str}; test $? -gt 0"  
         }
         default: {
-            $pkg_cmd =  "PKG_PATH=ftp://mirror.switch.ch/pub/OpenBSD/${operatingsystemrelease}/packages/${hardwaremodel}/;pkg_add -r ${name}"
+            $pkg_cmd =  "pkg_add -r ${name}"
             $pkg_check_cmd = "pkg_info | grep -q ${real_check_str}"               
         }
     }
@@ -25,6 +25,7 @@ define openbsd::special_package(
     exec{"openbsd_package_${name}":
         command => $pkg_cmd,
         unless => $pkg_check_cmd,
+        environment => "PKG_PATH=ftp://mirror.switch.ch/pub/OpenBSD/${operatingsystemrelease}/packages/${hardwaremodel}/",
         path => '/bin:/sbin:/usr/bin:/usr/sbin',
     }
 }
