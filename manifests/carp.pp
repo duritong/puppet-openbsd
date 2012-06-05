@@ -2,5 +2,5 @@
 # settings needed to use carp
 
 class openbsd::carp {
-    sysctl::value{"net.inet.carp.preempt": value => "1"}
+  sysctl::value{"net.inet.carp.preempt": value => "1"}
 }
