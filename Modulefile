@@ -1,0 +1,8 @@
+name    'duritong-openbsd'
+version '0.0.1'
+source 'git://github.com/duritong/puppet-openbsd.git'
+author 'duritong'
+license 'Apache License, Version 2.0'
+summary 'Puppet module for Munin monitoring'
+description 'Manage different things on openbsd'
+project_page 'https://github.com/duritong/puppet-openbsd'
